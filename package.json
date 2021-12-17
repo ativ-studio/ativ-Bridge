@@ -1,0 +1,23 @@
+{
+  "name": "ativ-bridge",
+  "version": "1.0.0",
+  "description": "Bridge between Solana and EVM-based blockchain",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/bridge.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtivSolana/ativ-Bridge.git"
+  },
+  "author": "lukepark327",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AtivSolana/ativ-Bridge/issues"
+  },
+  "homepage": "https://github.com/AtivSolana/ativ-Bridge#readme",
+  "dependencies": {
+    "ethers": "^5.5.2"
+  }
+}
