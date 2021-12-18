@@ -22,13 +22,24 @@ const masterChefWithSigner = masterChef.connect(wallet);
 //     console.log("Current block number: " + blockNumber);
 // });
 
-async function migrateAtivFromSolana(account, amount) {
-    /*
-        From Solana
-        ...
-    */
+const web3 = require('@solana/web3.js');
+const splToken = require('@solana/spl-token');
+const conn = new web3.Connection("http://api.devnet.solana.com");
 
-    tx = await ativVotesWithSigner.migrateFrom(account, amount);
+conn.onAccountChange(
+    new web3.PublicKey("226ReG6z2gBRfEkCq7ptxdHa9TB2gC2Pq6yzgjytax2x"),
+    migrateAtivFromSolana
+)
+
+async function migrateAtivFromSolana(accountInfo, ctx) {
+    const decoded = splToken.AccountLayout.decode(accountInfo.data);
+    let amount = splToken.u64.fromBuffer(decoded.amount).toString();
+    // console.log(amount);
+
+    tx = await ativVotesWithSigner.migrateFrom(
+        "0x9bF58625f37e6178F3da17825B0C3B043adDcBdE", // hard coded
+        20000 // hard coded
+    );
     console.log(tx);
 }
 
@@ -74,4 +85,4 @@ function hexToBigInt(inputString) {
 //     950327,
 //     2
 // );
-console.log(hexToBigInt("Hello, World!").toString());
+// console.log(hexToBigInt("Hello, World!").toString());

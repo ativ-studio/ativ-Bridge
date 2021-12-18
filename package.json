@@ -4,7 +4,7 @@
   "description": "Bridge between Solana and EVM-based blockchain",
   "main": "index.js",
   "scripts": {
-    "start": "node server/bridge.js",
+    "start": "nodemon server/bridge.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/AtivSolana/ativ-Bridge#readme",
   "dependencies": {
+    "@solana/spl-token": "^0.1.8",
+    "@solana/web3.js": "^1.31.0",
     "crypto-js": "^4.1.1",
-    "ethers": "^5.5.2"
+    "ethers": "^5.5.2",
+    "express": "^4.17.2"
   }
 }
