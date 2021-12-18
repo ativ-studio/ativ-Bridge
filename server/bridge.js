@@ -1,5 +1,6 @@
 const fs = require('fs');
-const { ethers } = require("ethers");
+const { ethers } = require('ethers');
+const crypto = require('crypto-js');
 
 const configs = JSON.parse(fs.readFileSync('server/config.json'));
 
@@ -21,18 +22,18 @@ const masterChefWithSigner = masterChef.connect(wallet);
 //     console.log("Current block number: " + blockNumber);
 // });
 
-async function migrateAtivFromSolana(to, amount) {
+async function migrateAtivFromSolana(account, amount) {
     /*
         From Solana
         ...
     */
 
-    tx = await ativVotesWithSigner.migrateFrom(to, amount);
+    tx = await ativVotesWithSigner.migrateFrom(account, amount);
     console.log(tx);
 }
 
-async function migrateAtivToSolana(to, amount) {
-    tx = await ativVotesWithSigner.migrateTo(to, amount);
+async function migrateAtivToSolana(account, amount) {
+    tx = await ativVotesWithSigner.migrateTo(account, amount);
     console.log(tx);
 
     /*
@@ -46,14 +47,31 @@ async function migrateNftFromSolana(to, tokenId, musicId, gain) {
         From Solana
         ...
     */
+
+    tx = await ipnftWithSigner.migrateFrom(to, tokenId, musicId, gain);
+    console.log(tx);
 }
 
-async function migrateNftToSolana(to, tokenId, musicId, gain) {
+async function migrateNftToSolana(from, tokenId) {
+    tx = await ipnftWithSigner.migrateTo(from, tokenId);
+    console.log(tx);
+
     /*
         To Solana
         ...
     */
 }
 
-// Test
-migrateAtivToSolana("0x9bF58625f37e6178F3da17825B0C3B043adDcBdE", 10000);
+function hexToBigInt(inputString) {
+    return BigInt("0x" + crypto.SHA256(inputString).toString());
+}
+
+/* Test */
+// migrateAtivToSolana("0x9bF58625f37e6178F3da17825B0C3B043adDcBdE", 10000);
+// migrateNftFromSolana(
+//     "0x9bF58625f37e6178F3da17825B0C3B043adDcBdE",
+//     12345,
+//     950327,
+//     2
+// );
+console.log(hexToBigInt("Hello, World!").toString());
